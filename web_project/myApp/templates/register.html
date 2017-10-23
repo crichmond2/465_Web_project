@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title%}Registration Page{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" type=text/css" href="{% static "css/register.css" %}"/>
+     <div class="grid-x grid-x-padding" style="height: 700px;">
+       <div class="large-2 columns" style="background-color:maroon">
+         <div class"large-12">
+           <h2 style="color:white">REGISTER</h2>
+         </div>
+       </div>
+       <div class="large-10 columns" style="background-image: url(' {% static "images/ChicoState.jpg" %}'">
+          <form action="/register/"  method="post" style="margin:80px">
+            {% csrf_token %}
+            {{form.errors}}
+            {{ form.username }}
+            {{ form.firstname }}
+            {{ form.lastname }}
+            {{ form.email }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+            <input type="submit" class = "button expanded" value="Register"/>
+          </form>
+        </div>
+     </div>
+{% endblock %}
