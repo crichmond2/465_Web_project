@@ -1,0 +1,20 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="grid-x grid-x-padding">
+  <div class="large-4 medium-4 small-4 large-offset-4 medium-offset-4 small-offset-4 columns">
+    <h3 class="text-center">Login</h3>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{ form.errors }}
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      <input type="submit" class="button expanded" value="login">
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -7,10 +7,10 @@
 <div class="grid-x grid-padding-x">
   <div class="large-8 medium-8 small-12">
     {% render_table text %}
-
     <form action="/" method="post">
       {% csrf_token %}
       {{ form }}
+      {{ form.school }}
       <input type="submit" class = "button expanded"  value="SUBMIT THIS ENTRY"/>
     </form>
   </div>
