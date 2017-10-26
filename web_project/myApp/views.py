@@ -32,4 +32,6 @@ def index(request):
 
 
 def profile(request):
-  return render(request,"profile.html")
+  form = Extended_user_form()
+  context = {"form":form}
+  return render(request,"profile.html",context)

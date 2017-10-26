@@ -2,6 +2,7 @@ from django import forms
 from django.core.validators import validate_unicode_slug
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
+from .models import *
 SCHOOL_LIST =(
     ('CSUC','Chico State'),
     ('CSUCI','Cal State Channel Islands'),
@@ -35,6 +36,15 @@ class Registration_form(UserCreationForm):
     if commit:
       user.save()
     return user
+
+class Extended_user_form(forms.Form):
+  school = forms.CharField(label = "School",max_length = 100,required = True)
+  years = forms.CharField(label = "Years", max_length = 100)
+  class Meta:
+    model = Extended_user
+    fields = ('School','years')
+
+
 class Login_form(AuthenticationForm):
   username=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Username'}),
                           max_length=40,

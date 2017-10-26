@@ -3,4 +3,16 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
+<div class = "grid-x grid-x-padding">
+<div class = "large-5 medium-5 small-3 large-offset-3 medium-offset-4">
+<form action = '/accounts/profile' class = "text-centered" method="post">
+  {% csrf_token %}
+  {{ form.school.label_tag }}
+  {{ form.school }}
+  {{ form.years.label_tag }}
+  {{ form.years }}
+  <input type="submit" class = "button rounded">
+</form>
+</div>
+</div>
 {% endblock %}
