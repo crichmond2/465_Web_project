@@ -30,7 +30,9 @@ function change_pic(thing){
             </form> -->
          </div>
        </div>
-       <div class="large-10 medium-10 small-10 columns" id="schools"style="background-image: url(' {% static "images/ChicoState.jpg" %}'">
+       <div class="large-10 medium-10 small-10 columns" id="schools">
+          <img class="bottom" src="{% static "images/ChicoState.jpg" %}"/>
+          <img class="top" src="{% static "images/UCLA.jpg" %}"/>
           <form action="/register/"  method="post" style="margin:80px">
             {% csrf_token %}
             {{ form.username }}

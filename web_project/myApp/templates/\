@@ -19,8 +19,10 @@
   <h1>{{name}}</h1>
   <form action = '/accounts/profile' class = "text-centered" method="post">
     {% csrf_token %}
-    {{ form.school.label_tag }}{{ form.school }}
-    {{ form.years.label_tag }}{{ form.years }}
+    {{ form.school.label_tag }}
+    {{ form.school }}
+    {{ form.years.label_tag }}
+    {{ form.years }}
     <input type="submit" class = "button rounded">
   </form>
   </div>
