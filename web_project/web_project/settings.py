@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myApp',
     'django_tables2',
+    'easy_thumbnails',
+    'channels',
 ]
 
 MIDDLEWARE = [
