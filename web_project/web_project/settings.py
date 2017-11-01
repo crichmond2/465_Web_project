@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'myApp',
     'django_tables2',
     'easy_thumbnails',
+
     'channels',
+
 ]
 
 MIDDLEWARE = [
