@@ -1,0 +1,60 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title%}Registration Page{% endblock %}
+
+{% block body %}
+<script>  
+document.getElementById("click").addEventListener(click,change_pic,false);
+function change_pic(thing){
+  var element = document.getElementById("schools");
+  var school = element.options[element.selectedIndex].value;
+  print("why");
+  element.style.backgroundImage = 'url(/static/images/UCLA.jpg)';
+}
+</script>
+<link rel="stylesheet" type="text/css" href={% static "css/register.css" %}/>
+<<<<<<< HEAD
+     <div class="grid-x grid-x-padding" style="height:100%;">
+=======
+     <div class="grid-x grid-x-padding" style="height: 700px;">
+>>>>>>> 0ff620bce86bee0906ae32408243a5d12c792488
+       <div class="large-2 medium-2 small-2 columns" style="background-color:maroon">
+         <div class="large-12 medium-12 small-12">
+           <h2 style="color:white">REGISTER</h2>
+           <p style="color:white">Please register by entering a Username, your First and Last Names,an email we can contact you at and your password.
+           </p>
+           <p style="color:white">
+            Please select the school you currently attend, or plan to attend. If your school isn't listed please follow the link to add your school.<a href="/add_school/">Add school</a>
+            </p>
+            <p style="color:white">
+              {{form.errors}}
+            </p>
+      <!--      <form id="click"onclick="change_pic(this)"action="/register/" style="color:maroon"  class = "ChicoState">
+              {% csrf_token %}
+            </form> -->
+         </div>
+       </div>
+       <div class="large-10 medium-10 small-10 columns" id="schools">
+<<<<<<< HEAD
+          <!---<img class="bottom" src="{% static "images/ChicoState.jpg" %}"/>
+          <img class="top" src="{% static "images/UCLA.jpg" %}"/> -->
+=======
+          <img class="bottom" src="{% static "images/ChicoState.jpg" %}"/>
+          <img class="top" src="{% static "images/UCLA.jpg" %}"/>
+>>>>>>> 0ff620bce86bee0906ae32408243a5d12c792488
+          <form action="/register/"  method="post" style="margin:80px">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.firstname }}
+            {{ form.lastname }}
+            {{ form.email }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+            {{ form.school }}
+            <input type="submit" class = "button expanded" value="Register"/>
+          </form>
+        </div>
+     </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
