@@ -49,11 +49,11 @@ def profile(request):
   context = {"form":form, "name":full_name}
   return render(request,"profile.html",context)
 
-@login_required
-def chat_room(request,label):
-	#If the room with the given label doesn't exist, create a new one 
-	room,created = Room.objects.get_or_create(label=label)
+#@login_required
+#def chat_room(request,label):
+#	#If the room with the given label doesn't exist, create a new one 
+#	room,created = Room.objects.get_or_create(label=label)
 	#show last 50 messages
-	messages = reversed(room.messages.order_by('-timstamp')[:50])
-	return render(request, "chat_room.html", {'room':room,'messages:messages'})
+#	messages = reversed(room.messages.order_by('-timstamp')[:50])
+#	return render(request, "chat_room.html", {'room':room,'messages:messages'})
 
