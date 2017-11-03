@@ -3,8 +3,9 @@ $(function() {
   var chatsock = new ReconnectingWebSocket(scheme + '://' + window.location.host + "/chat" + window.location.pathname);
 
   chatsock.onmessage = function(message){
+    console.log("clicked")
     var data = JSON.parse(message.data);
-    var chat == $("#chat")
+    var chat = $("#chat")
     var ele = $('<tr></tr>')
     ele.append($("<td>></td>").text(data.timestamp))
     ele.append($("<td>></td>").text(data.handle))
@@ -15,10 +16,11 @@ $(function() {
 
   $("#chatform").on("submit",function(event) {
     var message = {
-      handle: $('#handle').val(),
+      handle: "work",//$('#handle').val(),
       message: $('#message').val(),
       }
-      chatsock.send(JSON.strigify(message));
+      console.log(message)
+      chatsock.send(JSON.stringify(message));
       $("#message").val('').focus();
       return false;
   });
