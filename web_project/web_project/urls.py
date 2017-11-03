@@ -24,4 +24,5 @@ urlpatterns = [
         'authentication_form':Login_form
         }, name="login"),
     url(r'',include('myApp.urls')),
+    url('^chat/',include('chat.urls')),
 ]
