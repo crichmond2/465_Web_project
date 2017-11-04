@@ -16,7 +16,7 @@ $(function() {
 
   $("#chatform").on("submit",function(event) {
     var message = {
-      handle: "work",//$('#handle').val(),
+      handle:document.getElementById('username').innerHTML,//$('#handle').val(),
       message: $('#message').val(),
       }
       console.log(message)
