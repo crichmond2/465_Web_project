@@ -10,7 +10,7 @@ def new_room(request):
   new_room = None
 #  while not new_room:
   with transaction.atomic():
-    label = "testing"
+    label = 'testing' 
     if Room.objects.filter(label=label).exists():
       return chat_room(request,label)#      continue
     new_room = Room.objects.create(label = label)
@@ -21,8 +21,7 @@ def chat_room(request,label):#,label):
   room, created = Room.objects.get_or_create(label=label)
   messages = reversed(room.messages.order_by('-timestamp')[:50])
   user = request.user.get_username()
-  print(room)
-  print(created)
+  print("This better work" + label)
   return render(request,"room.html",{
     'room':room,
     'messages':messages,
