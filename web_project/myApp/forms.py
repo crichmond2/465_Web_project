@@ -3,6 +3,8 @@ from django.core.validators import validate_unicode_slug
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from .models import *
+from django_popup_view_field.fields import PopupViewField
+from .popups import ColorsPopupView
 SCHOOL_LIST =(
     ('CSUC','Chico State'),
     ('CSUCI','Cal State Channel Islands'),
@@ -55,7 +57,8 @@ class Login_form(AuthenticationForm):
                            max_length=40,
                            widget=forms.PasswordInput(),
                            )
- 
+class ColorForm(forms.Form):
+  color = PopupViewField(view_class=ColorsPopupView,popup_dialog_title='What is your favorite color',required=True,help_text='be honest')
 #class school_form(forms.ModelForm):
 #  class Meta:
 #    model = school

@@ -49,6 +49,14 @@ def profile(request):
   context = {"form":form, "name":full_name}
   return render(request,"profile.html",context)
 
+def popup(request):
+  return render(request,"color_form.html")
+class ColorFormView(FormView):
+  template_name='color_form.html'
+  form_class = ColorForm
+  def form_valid(self,form):
+    color = form.cleaned_data.get("color")
+    return HttpResponse("Your color:{0}".format(color))
 #@login_required
 #def chat_room(request,label):
 #	#If the room with the given label doesn't exist, create a new one 

@@ -25,4 +25,6 @@ urlpatterns = [
         }, name="login"),
     url(r'',include('myApp.urls')),
     url('^chat/',include('chat.urls')),
+    url(r'^django_popup_view_field/',include('django_popup_view_field.urls',namespace="django_popup_view_field")),
+
 ]

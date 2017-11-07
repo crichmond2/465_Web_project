@@ -8,8 +8,8 @@ log = logging.getLogger(__name__)
 def ws_connect(message):
   #prefix, label = message['path'].strip('/').split('/')
   #print(label)
-  label = "testing"
-  print("connecting...")
+  pre,pre,label = message['path'].strip('/').split('/') 
+  print(label)
   room = Room.objects.get(label=label)
   Group('chat-' + label).add(message.reply_channel)
   message.channel_session['room'] = room.label

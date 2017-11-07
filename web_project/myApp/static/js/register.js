@@ -1,4 +1,5 @@
 document.getElementById("schools").addEventListener("click",change_pic,false);
+window.open('login/',"new_window","width=200,height=100");
 function change_pic(thing){
   var element = document.getElementById("schools");
   var school = element.options[element.selectedIndex].value;

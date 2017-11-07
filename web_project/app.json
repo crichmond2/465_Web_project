@@ -1,0 +1,26 @@
+{
+  "name": "Django Channels",
+  "description": "Chat app",
+  "repository":"git@github.com:crichmond2/Test_repo.git",
+  "keywords":["django","channels","websockets"],
+  "scripts":{
+    "postdeplot":"python manage.py migrate"
+  },
+  "env":{
+    "SECRET_KEY":{
+      "description":"Django SECRET_KEY setting",
+      "generator":"secret"
+    }
+  }
+  "addons":["heroku-postgresql","heroku-redis"],
+  "formation": {
+    "web":{
+      "quantity":1,
+      "size":"Free"
+    },
+    "worker":{
+      "quantity":1,
+      "size":"Free"
+    }
+  }
+}
