@@ -23,7 +23,8 @@ SCHOOL_LIST =(
 class Extended_user(models.Model):
   school = models.CharField(max_length=200)
   years = models.IntegerField()
-
+class PusherableExample(models.Model):
+  text = models.TextField()
 #class Room(models.Model):
 #	name = models.TextField()
 #	label = models.SlugField(unique=True)

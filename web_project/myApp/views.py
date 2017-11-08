@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import FormView
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
+from django.views.generic.detail import DetailView
+from pusherable.mixins import PusherDetailMixin
 from .models import *
 from .forms import *
 # Create your views here.
@@ -57,6 +59,9 @@ class ColorFormView(FormView):
   def form_valid(self,form):
     color = form.cleaned_data.get("color")
     return HttpResponse("Your color:{0}".format(color))
+class PusherableExampleDetail(PusherDetailMixin,DetailView):
+  model = PusherableExample
+  template_name = "example.html"
 #@login_required
 #def chat_room(request,label):
 #	#If the room with the given label doesn't exist, create a new one 
