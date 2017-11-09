@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse,HttpResponseRedirect
 from django.views.generic import FormView
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
+from django.urls import resolve
 from django.views.generic.detail import DetailView
 from pusherable.mixins import PusherDetailMixin
 from .models import *
 from .forms import *
+import os
 # Create your views here.
 def login(request):
   username = request.POST['username']
@@ -14,7 +16,9 @@ def login(request):
   user = authenticate(request,username=username,password=password)
   if user is not None:
     login(request,user)
-    return redirect("/accounts/profile")
+    redirection = "/accounts/profile/" + username
+    print(redirection)
+    return redirect("/accounts/profile/RLChris")
   #if request.method == 'POST':
   #  form = Login_form(request.POST)
   #  if form.is_valid():
@@ -45,10 +49,18 @@ def logout_(request):
   logout(request)
   return redirect("/")
 @login_required
-def profile(request):
+def profile(request,USER):
   form = Extended_user_form()
   full_name = request.user.get_full_name()
-  context = {"form":form, "name":full_name}
+  prof = ((request.get_full_path()).split('/profile/')[1]).split('/')[0]
+  user = request.user.get_username()
+  print(prof)
+  print(user)
+  if user == prof:
+    owner = True
+  else:
+    owner = False
+  context = {"form":form, "name":full_name,"owner":owner}
   return render(request,"profile.html",context)
 
 def popup(request):
@@ -62,6 +74,10 @@ class ColorFormView(FormView):
 class PusherableExampleDetail(PusherDetailMixin,DetailView):
   model = PusherableExample
   template_name = "example.html"
+def login_redir(request):
+  user = request.user.get_username()
+  redirection = 'accounts/profile/%s/' % user
+  return HttpResponseRedirect(redirection)
 #@login_required
 #def chat_room(request,label):
 #	#If the room with the given label doesn't exist, create a new one 

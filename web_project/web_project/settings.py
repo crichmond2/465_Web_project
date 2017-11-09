@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['desolate-atoll-85149.herokuapp.com','localhost']
 
+var = 'RLChris'
+LOGIN_REDIRECT_URL = 'login_redir'
 
 # Application definition
 

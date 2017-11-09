@@ -3,6 +3,7 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
+{% if owner %}
 <link rel="stylesheet" type="text/css" href= "{% static "css/profile.css" %}" />
 <li><a href="/logout/">Logout</a></li>
 <li><a href="/chat/testing/">Testing Chat Room</a><li>
@@ -28,4 +29,7 @@
   <div class = "large-3 medium-3 small-3 columns">
   </div>
 </div>
+{% else %}
+<h1>You're not the user</h1>
+{% endif %}
 {% endblock %}
