@@ -8,6 +8,7 @@ from django.views.generic.detail import DetailView
 from pusherable.mixins import PusherDetailMixin
 from .models import *
 from .forms import *
+import random
 import os
 # Create your views here.
 def login(request):
@@ -54,13 +55,23 @@ def profile(request,USER):
   full_name = request.user.get_full_name()
   prof = ((request.get_full_path()).split('/profile/')[1]).split('/')[0]
   user = request.user.get_username()
-  print(prof)
-  print(user)
+  prof_first_name = User.objects.all().filter(username=prof).values_list('first_name',flat=True)
+  first_name = list(prof_first_name)
+  prof_last_name = User.objects.all().filter(username=prof).values_list('last_name',flat=True)
+  last_name = list(prof_last_name)
+  rand_num = random.randint(0,1000000)
+  chat_link = "chat/new_P"+str(rand_num)+((first_name[0])[0])
   if user == prof:
     owner = True
   else:
     owner = False
-  context = {"form":form, "name":full_name,"owner":owner}
+  context = {"form":form, 
+             "name":full_name,
+             "owner":owner,
+             "prof_first_name":first_name[0],
+             "prof_last_name":last_name[0],
+             "chat_link":chat_link,
+            }
   return render(request,"profile.html",context)
 
 def popup(request):

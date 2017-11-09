@@ -30,6 +30,35 @@
   </div>
 </div>
 {% else %}
-<h1>You're not the user</h1>
+<link rel="stylesheet" type="text/css" href= "{% static "css/profile.css" %}" />
+<li><a href="/logout/">Logout</a></li>
+<li><a href="/chat/testing/">Testing Chat Room</a><li>
+<div class = "grid-x grid-x-padding">
+  <div class = "large-3 medium-3 small-3 columns">
+    <div class = "grid-x grid-x-padding">
+        <div class = "large-6 medium-6 small-6 large-offset-3 medium-offset-3 small-offset-3" id = "pages">
+          <div onclick="new_chat()">
+            <p id="chat_link" style="display:none;">{{chat_link}}</p>
+            <p style="color:while"> Click here to chat with {{prof_first_name}}</p>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class = "large-6 medium-6 small-6 columns">
+  <h1>{{prof_first_name}} {{prof_last_name}}</h1>
+  <p> Not owner of profile </p>
+  <form action = '/accounts/profile' class = "text-centered" method="post">
+    {% csrf_token %}
+    {{ form.school.label_tag }}{{ form.school }}
+    {{ form.years.label_tag }}{{ form.years }}
+    <input type="submit" class = "button rounded">
+  </form>
+  </div>
+  <div class = "large-3 medium-3 small-3 columns">
+  </div>
+</div>
 {% endif %}
+{% endblock %}
+{% block scripts %}
+  <script src="{% static "js/profile.js" %}"></script>
 {% endblock %}
