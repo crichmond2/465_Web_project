@@ -17,9 +17,9 @@ def login(request):
   user = authenticate(request,username=username,password=password)
   if user is not None:
     login(request,user)
-    redirection = "/accounts/profile/" + username
-    print(redirection)
-    return redirect("/accounts/profile/RLChris")
+#    redirection = "/accounts/profile/" + username
+#    print(redirection)
+#    return redirect("/accounts/profile/RLChris")
   #if request.method == 'POST':
   #  form = Login_form(request.POST)
   #  if form.is_valid():
@@ -78,6 +78,9 @@ def login_redir(request):
   user = request.user.get_username()
   redirection = 'accounts/profile/%s/' % user
   return HttpResponseRedirect(redirection)
+ # def get_context_data(self,**kwargs):
+  #  context = super(ArticleDetailView, self).get_context_data(**kwargs)
+    
 #@login_required
 #def chat_room(request,label):
 #	#If the room with the given label doesn't exist, create a new one 

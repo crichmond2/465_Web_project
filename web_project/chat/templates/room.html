@@ -2,9 +2,18 @@
 {% load static %}
 {% block body %}
   <h1>{{room.label}}</h1>
+  <div class = "grid-x grid-x-padding">
+    <div class = "large-3 medium-3 small-3">
+      <form method="post">
+        {% csrf_token %}
+        {{register.room.label_tag}} {{register.room}}    
+        {{register.username.label_tag}}{{register.username}} <input type="submit" class = "button rounded" value="Register for the Chat Room"/>
+      </form>
+    </div>
+  </div>
   <p class="quiet">
     Anyone with this URL can join the room and chat:
-    <code>{{ request.scheme }}://{{ request.get_host }}/{{ room.label }}
+    <code>{{ request.scheme }}://{{ request.get_host }}/chat/{{ room.label }}
   </p>
   <li id = "username" style="display: none;">{{ user }}</li>
   <form id = "chatform">

@@ -5,7 +5,7 @@ from django.utils import timezone
 class Room(models.Model): 
   name = models.TextField()
   label = models.SlugField(unique=True)
-  
+    
   def __str__(self):
     return self.label
 
@@ -22,3 +22,8 @@ class Message(models.Model):
 
     def as_dict(self):
       return {'handle':self.handle, 'message':self.message, 'timestamp':self.formatted_timestamp}
+class chat_users(models.Model):
+  room = models.CharField(max_length = 200)
+  user_name = models.CharField(max_length = 200)
+  def save(self,*args,**kwargs):
+    super(chat_users,self).save(*args,**kwargs)
