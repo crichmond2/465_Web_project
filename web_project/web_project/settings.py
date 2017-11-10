@@ -29,7 +29,6 @@ ALLOWED_HOSTS = ['desolate-atoll-85149.herokuapp.com','localhost']
 
 var = 'RLChris'
 LOGIN_REDIRECT_URL = 'login_redir'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
     'channels',
     'bootstrap3',
     'django_popup_view_field',
-    'pusherable'
+    'pusherable',
 ]
 
 MIDDLEWARE = [
@@ -141,4 +140,5 @@ PUSHER_CLUSTER = u""
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+READ_ONLY_FILE = os.path.join(PROJECT_DIR,'readonly')
 MEDIA_URL = '/media/'

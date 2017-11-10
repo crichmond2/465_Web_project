@@ -74,17 +74,6 @@ def profile(request,USER):
             }
   return render(request,"profile.html",context)
 
-def popup(request):
-  return render(request,"color_form.html")
-class ColorFormView(FormView):
-  template_name='color_form.html'
-  form_class = ColorForm
-  def form_valid(self,form):
-    color = form.cleaned_data.get("color")
-    return HttpResponse("Your color:{0}".format(color))
-class PusherableExampleDetail(PusherDetailMixin,DetailView):
-  model = PusherableExample
-  template_name = "example.html"
 def login_redir(request):
   user = request.user.get_username()
   redirection = 'accounts/profile/%s/' % user
