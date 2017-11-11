@@ -15,7 +15,7 @@
             Be centered please!
           </p>
           {% for x in chat_rooms %}
-            <a href="/chat/{{x}}">{{x}}</a>
+            <p onclick="get_chat('{{x}}')">{{x}}</p>
           {% endfor %}
           <p id = "chats"></p>
         </div>

@@ -1,3 +1,8 @@
+window.onload=toBottom;
+function toBottom()
+{
+  window.scrollTo(0,document.body.scrollHeight);
+}
 $(function() {
   var scheme = window.location.protocol == "https:" ? "wss" : "ws";
   var chatsock = new ReconnectingWebSocket(scheme + '://' + window.location.host + "/chat" + window.location.pathname);
@@ -21,8 +26,12 @@ $(function() {
       }
       console.log(message)
       chatsock.send(JSON.stringify(message));
-      $("#message").val('').focus();
+      $("#messages").val('').focus();
       return false;
   });
 });
-
+/*$(document).ready(function() {
+  $('html,body').animate({
+    scrollTop: $('#messages').offset().top
+    },'slow');
+});*/

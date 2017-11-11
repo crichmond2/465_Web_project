@@ -4,11 +4,16 @@
   <h1>{{room.label}}</h1>
   <div class = "grid-x grid-x-padding">
     <div class = "large-3 medium-3 small-3">
+      {% if not registered %}
       <form method="post">
-        {% csrf_token %}
-        {{register.room.label_tag}} {{register.room}}    
-        {{register.username.label_tag}}{{register.username}} <input type="submit" class = "button rounded" value="Register for the Chat Room"/>
+          {% csrf_token %}
+          {{register.room }}    
+          {{register.username}}
+       <input type="submit" class = "button rounded" value="Register for the Chat Room"/>
       </form>
+      {% else %}
+      <p> You are registered</p>
+      {% endif %}
     </div>
   </div>
   <p class="quiet">
@@ -16,6 +21,7 @@
     <code>{{ request.scheme }}://{{ request.get_host }}/chat/{{ room.label }}
   </p>
   <li id = "username" style="display: none;">{{ user }}</li>
+  <div id = "messages">
   <form id = "chatform">
     <table id="chat">
       <tbody>
@@ -37,6 +43,7 @@
         </tfoot>
       </table>
     </form>
+    </div>
 {% endblock body %}
 
 {% block scripts %}

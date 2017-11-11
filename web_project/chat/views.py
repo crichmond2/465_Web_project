@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import random
 from django.db import transaction
-from .models import Room
+from .models import *
 from django.core.urlresolvers import resolve
 from django.contrib.auth.decorators import login_required
 from .forms import *
@@ -26,12 +26,28 @@ def chat_room(request,label):#,label):
   room, created = Room.objects.get_or_create(label=label) #get_or_create
   messages = reversed(room.messages.order_by('-timestamp')[:50])
   user = request.user.get_username()
-  form = chat_register() 
-  print("This better work" + label)
+  User = str(user)
+  data = {'room':room,'username':user}
+  Registered = chat_users.objects.all().filter(room=room).values_list('user_name',flat=True)
+  #Registered = chat_users.objects.all().filter(room=room).values_list(user
+  register = list(Registered)
+  print(len(register))
+  print(register)
+  #Register = Registered.filter(user_name = user)
+  
+  registered = False
+  if user in register:
+    registered = True
+  print(registered)
+  form = chat_register(data) 
+  form.fields["username"].widget = forms.HiddenInput()
+  form.fields["room"].widget = forms.HiddenInput()
+  #print("This better work" + label)
   return render(request,"room.html",{
     'room':room,
     'messages':messages,
     'user':user,
     'register':form,
+    'registered':registered,
     })
 
