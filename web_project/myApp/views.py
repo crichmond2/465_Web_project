@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse,HttpResponseRedirect
-from django.views.generic import FormView
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.urls import resolve
 from django.views.generic.detail import DetailView
 from pusherable.mixins import PusherDetailMixin
 from .models import *
+from chat.models import chat_users
 from .forms import *
 import random
 import os
@@ -58,7 +57,11 @@ def profile(request,USER):
   prof_first_name = User.objects.all().filter(username=prof).values_list('first_name',flat=True)
   first_name = list(prof_first_name)
   prof_last_name = User.objects.all().filter(username=prof).values_list('last_name',flat=True)
+  chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+  room_list = list(chatRooms)
   last_name = list(prof_last_name)
+  print(len(room_list))
+  print(user)
   rand_num = random.randint(0,1000000)
   chat_link = "chat/new_P"+str(rand_num)+((first_name[0])[0])
   if user == prof:
@@ -71,6 +74,7 @@ def profile(request,USER):
              "prof_first_name":first_name[0],
              "prof_last_name":last_name[0],
              "chat_link":chat_link,
+             "chat_rooms":room_list,
             }
   return render(request,"profile.html",context)
 

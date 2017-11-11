@@ -9,7 +9,7 @@ class chat_register(forms.Form):
   def save(self,commit=True):
     user = chat_users()
     user.room = self.cleaned_data["room"]
-    user.username = self.cleaned_data["username"]
+    user.user_name = self.cleaned_data["username"]
     if commit:
       user.save()
     return user
