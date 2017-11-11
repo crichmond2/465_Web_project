@@ -1,5 +1,4 @@
 <!doctype html>
-{% load django_popup_view_field_tags %}
 {% load static %}
 <html class="no-js" lang="en" dir="ltr">
   <head>
@@ -16,7 +15,6 @@
     <script src="{% static "js/vendor/what-input.js" %}"></script>
     <script src="{% static "js/vendor/foundation.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>
-    {% django_popup_view_field_javascript %}
     {% block scripts %}{% endblock %}
   </body>
 </html>

@@ -3,6 +3,9 @@ function toBottom()
 {
   window.scrollTo(0,document.body.scrollHeight);
 }
+function reload(){
+  location.reload();
+}
 $(function() {
   var scheme = window.location.protocol == "https:" ? "wss" : "ws";
   var chatsock = new ReconnectingWebSocket(scheme + '://' + window.location.host + "/chat" + window.location.pathname);

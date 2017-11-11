@@ -61,6 +61,7 @@ def profile(request,USER):
   room_list = list(chatRooms)
   last_name = list(prof_last_name)
   print(len(room_list))
+  print(room_list)
   print(user)
   rand_num = random.randint(0,1000000)
   chat_link = "chat/new_P"+str(rand_num)+((first_name[0])[0])

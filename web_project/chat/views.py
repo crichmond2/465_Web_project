@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 import random
 from django.db import transaction
 from .models import *
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve,reverse
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.http import HttpResponseRedirect
 # Create your views here.
 @login_required
 def new_room(request,label):
@@ -19,10 +20,6 @@ def new_room(request,label):
   return redirect(chat_room,label) 
 @login_required
 def chat_room(request,label):#,label):
-  if request.method == 'POST':
-    form = chat_register(request.POST)
-    if form.is_valid():
-      form.save(commit=True)
   room, created = Room.objects.get_or_create(label=label) #get_or_create
   messages = reversed(room.messages.order_by('-timestamp')[:50])
   user = request.user.get_username()
@@ -38,7 +35,22 @@ def chat_room(request,label):#,label):
   registered = False
   if user in register:
     registered = True
+  
+  if request.method == 'POST':
+    if(registered == False):
+      form = chat_register(request.POST)
+      form = chat_register(data) 
+      if form.is_valid():
+        form.save(commit=True)
+    if(registered == True):
+      user = chat_users.objects.filter(user_name=user).delete()
+    return HttpResponseRedirect('/chat/'+label)
+    request.session.modified = True
   print(registered)
+      #return HttpResponseRedirect("")
+#    if(registered == True):
+      #request.session.modified = True
+      #form.delete()
   form = chat_register(data) 
   form.fields["username"].widget = forms.HiddenInput()
   form.fields["room"].widget = forms.HiddenInput()
@@ -50,4 +62,5 @@ def chat_room(request,label):#,label):
     'register':form,
     'registered':registered,
     })
+
 

@@ -13,6 +13,10 @@
       </form>
       {% else %}
       <p> You are registered</p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="submit" class = "button round" value="Unregister"/>
+      </form>
       {% endif %}
     </div>
   </div>
