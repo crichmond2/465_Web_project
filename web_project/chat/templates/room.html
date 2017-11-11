@@ -2,6 +2,10 @@
 {% load static %}
 {% block body %}
   <h1>{{room.label}}</h1>
+  <p>*Note: If no users are registered, all messages will be deleted</p>
+  {% for x in room_users %}
+   <ul>{{x}}</ul>
+  {% endfor %}
   <div class = "grid-x grid-x-padding">
     <div class = "large-3 medium-3 small-3">
       {% if not registered %}

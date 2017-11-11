@@ -61,6 +61,7 @@ def chat_room(request,label):#,label):
     'user':user,
     'register':form,
     'registered':registered,
+    'room_users':register,
     })
 
 
