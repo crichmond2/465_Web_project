@@ -25,7 +25,7 @@ SECRET_KEY = '6gyvam2z2tr#8s=cv11))fns1u!mr@*v=u09bwjy8e7mg$geul'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['desolate-atoll-85149.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['desolate-atoll-85149.herokuapp.com','localhost', "127.0.0.1"]
 
 var = 'RLChris'
 LOGIN_REDIRECT_URL = 'login_redir'

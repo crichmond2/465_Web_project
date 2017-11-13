@@ -10,6 +10,8 @@ from .forms import *
 import random
 import os
 # Create your views here.
+def home(request):
+    return render(request,"homepage.html")
 def login(request):
   username = request.POST['username']
   password = request.POST['password']
@@ -69,7 +71,7 @@ def profile(request,USER):
     owner = True
   else:
     owner = False
-  context = {"form":form, 
+  context = {"form":form,
              "name":full_name,
              "owner":owner,
              "prof_first_name":first_name[0],
@@ -85,12 +87,11 @@ def login_redir(request):
   return HttpResponseRedirect(redirection)
  # def get_context_data(self,**kwargs):
   #  context = super(ArticleDetailView, self).get_context_data(**kwargs)
-    
+
 #@login_required
 #def chat_room(request,label):
-#	#If the room with the given label doesn't exist, create a new one 
+#	#If the room with the given label doesn't exist, create a new one
 #	room,created = Room.objects.get_or_create(label=label)
 	#show last 50 messages
 #	messages = reversed(room.messages.order_by('-timstamp')[:50])
 #	return render(request, "chat_room.html", {'room':room,'messages:messages'})
-

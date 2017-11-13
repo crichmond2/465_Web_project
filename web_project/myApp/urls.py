@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from .import views
 urlpatterns = [
-    url('^$',views.index,name='index'),
+    url('^$', views.home,name='home'),
     url(r'^register/$',views.register,name='register'),
     url(r'^add_school/$',views.add_school,name='add school'),
     url(r'^login/$',views.login,name='login'),
