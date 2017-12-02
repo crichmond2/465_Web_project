@@ -4,7 +4,16 @@
 {% block title%}Results{% endblock %}
 
 {% block body %}
-{% for x in results %}
+<h3>----------------Chat Results---------------<h3>
+{% for x in chat_results %}
+<p>{{x}}</p>
+{% endfor %}
+<h3>---------------school results---------------<h3>
+{% for x in school_results %}
+<p>{{x}}<p>
+{% endfor %}
+<h3>----------------post_results-------------------<h3>
+{% for x in post_results %}
 <p>{{x}}</p>
 {% endfor %}
 {% endblock %}

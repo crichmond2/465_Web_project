@@ -39,10 +39,6 @@ class Schools(models.Model):
       super(Schools,self).save(*args,**kwargs)
 class Post(models.Model):
   Post = models.TextField()
-  user = models.CharField(max_length=100)
-  def save(self,commit = True,*args,**kwargs):
-    if(commit==True):
-      super(Post,self).save(*args,**kwargs)
 #class Room(models.Model):
 #	name = models.TextField()
 #	label = models.SlugField(unique=True)

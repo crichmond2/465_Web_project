@@ -13,21 +13,30 @@ import os
 def home(request):
     if(request.method == 'POST'):
       form = Search_form(request.POST)
-      results = list()
+      school_results = list()
+      post_results = list()
+      chat_results = list()
       chat_rooms = Room.objects.all().values_list()
       schools = Schools.objects.all().values_list()
+      posts = Post.objects.all().values_list()
       if(form.is_valid()):
         search = form.get()
         print(search)
         for i,j,x in chat_rooms:
           if(search in x):
-            results.append(x)
+            chat_results.append(x)
         for i,x in schools:
-          print(x)
+          #print(x)
+          #print(search)
+          if(search in x or search == x):
+           # print(i + "," + x)
+            school_results.append(x)
+        for i,x,j in posts:
           if(search in x):
-            results.append(x)
-        print(results)
-        context = {"results":results}
+            post_results.append(x)
+          #print(x)
+        #print(results)
+        context = {"school_results":school_results,"chat_results":chat_results,"post_results":post_results}
         return render(request,"results.html",context)
     form = Search_form()
     context = {"form":form}
@@ -54,7 +63,11 @@ def add_school(request):
   if request.method == 'POST':
     form = AddSchool(request.POST)
     if form.is_valid():
-      form.save(commit=True)
+      print(form.cleaned_data["school"])
+      data = {"school":form.cleaned_data["school"]}
+      form = AddSchool(data)
+      if(form.is_valid()):
+        form.save()
       return redirect("/")
   form = AddSchool()
   context = {'form':form}
@@ -78,6 +91,28 @@ def results(request):
 def logout_(request):
   logout(request)
   return redirect("/")
+@login_required
+def post(request):
+  if(request.method=="POST"):
+    form = post_form(request.POST)
+    print(form.is_valid())
+    if(form.is_valid()):
+      User,Text = form.get()
+      print(User + " " + Text)
+      data = {'user':User,'text':Text} 
+      post = Post()
+      post.user = User
+      post.text = Text
+      #post.save()
+      instance = form.save(commit=False)
+      instance.user = User
+      instance.Post = Text
+      instance.save()
+      return redirect('/')
+  data = {'user':request.user.username}
+  form = post_form(data) 
+  context = {'form':form}
+  return render(request,"post.html",context)
 @login_required
 def profile(request,USER):
   form = Extended_user_form()

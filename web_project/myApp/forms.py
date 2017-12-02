@@ -45,7 +45,8 @@ class AddSchool(forms.Form):
   def save(self,commit=True):
     school = Schools()
     school.school = self.cleaned_data['school']
-    school.save()
+    if(commit==True):
+      school.save()
     return school
 class Extended_user_form(forms.Form):
   school = forms.CharField(label = "School",max_length = 100,required = True)
@@ -53,7 +54,22 @@ class Extended_user_form(forms.Form):
   class Meta:
     model = Extended_user
     fields = ('School','years')
-
+class post_form(forms.Form):
+  user = forms.CharField(label="user",max_length = 100,required = True)
+  text = forms.CharField(widget=forms.Textarea,label = 'text',required = True)
+  class Meta:
+    model = Post
+    fields = ('user','text')
+  def save(self,commit=True):
+    model = Post()
+    model.user=self.cleaned_data['user']
+    model.text=self.cleaned_data['text']
+    if(commit==True):
+      model.save()
+    return model
+  def get(self):
+    context = (self.cleaned_data['user'],self.cleaned_data['text'])
+    return context
 class Search_form(forms.Form):
   search_field = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Search..."}),label = "Search",max_length = 100,required = True)
   class Meta:

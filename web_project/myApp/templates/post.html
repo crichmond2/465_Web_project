@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title%}Registration Page{% endblock %}
+{% block body %}
+<div class = "grid-x grid-x-padding">
+  <form method="post">
+    {% csrf_token %}
+    {{form.user.label_tag}}
+    {{form.user}}
+    {{form.text.label_tag}}
+    {{form.text}}
+    <input type="submit" value = "submit">
+  </form>
+{% endblock %}
+

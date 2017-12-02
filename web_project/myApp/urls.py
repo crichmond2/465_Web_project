@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^login_redir/$',views.login_redir,name='login_redir'),
     url(r'^logout/$',views.logout_,name='logout'),
     url(r'accounts/profile/(?P<USER>.+)/$',views.profile,name='profile'),
+    url(r'^post/$',views.post,name='Post'),
 ]
