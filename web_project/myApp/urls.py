@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from .import views
 urlpatterns = [
     url('^$', views.home,name='home'),
+    url('^results/$',views.results,name='results'),
     url(r'^register/$',views.register,name='register'),
     url(r'^add_school/$',views.add_school,name='add school'),
     url(r'^login/$',views.login,name='login'),

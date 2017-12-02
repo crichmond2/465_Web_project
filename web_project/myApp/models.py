@@ -30,6 +30,11 @@ class Choice(models.Model):
   question = models.ForeignKey(Question)
   choice_text = models.CharField(max_length = 200)
   votes = models.IntegerField(default=0)
+class Schools(models.Model):
+  School = models.CharField(max_length=100)
+  def save(self,*args,**kwargs):
+    super(Schools,self).save(*args,**kwargs)
+
 #class Room(models.Model):
 #	name = models.TextField()
 #	label = models.SlugField(unique=True)

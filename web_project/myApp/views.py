@@ -5,13 +5,33 @@ from django.urls import resolve
 from django.views.generic.detail import DetailView
 from pusherable.mixins import PusherDetailMixin
 from .models import *
-from chat.models import chat_users
+from chat.models import chat_users, Room
 from .forms import *
 import random
 import os
 # Create your views here.
 def home(request):
-    return render(request,"homepage.html")
+    if(request.method == 'POST'):
+      form = Search_form(request.POST)
+      results = list()
+      chat_rooms = Room.objects.all().values_list()
+      schools = Schools.objects.all().values_list()
+      if(form.is_valid()):
+        search = form.get()
+        print(search)
+        for i,j,x in chat_rooms:
+          if(search in x):
+            results.append(x)
+        for i,x in schools:
+          print(x)
+          if(search in x):
+            results.append(x)
+        print(results)
+        context = {"results":results}
+        return render(request,"results.html",context)
+    form = Search_form()
+    context = {"form":form}
+    return render(request,"homepage.html",context)
 def login(request):
   username = request.POST['username']
   password = request.POST['password']
@@ -31,7 +51,14 @@ def login(request):
   #context={'form':form}
   #return render(request,"login.html",context)
 def add_school(request):
-  return render(request,"add_school.html")
+  if request.method == 'POST':
+    form = AddSchool(request.POST)
+    if form.is_valid():
+      form.save(commit=True)
+      return redirect("/")
+  form = AddSchool()
+  context = {'form':form}
+  return render(request,"add_school.html",context)
 def register(request):
   if request.method == 'POST':
     form = Registration_form(request.POST)
@@ -46,7 +73,8 @@ def register(request):
 def index(request):
   text = User.objects.all()
   return render(request,"content.html",locals())
-
+def results(request):
+  return render(request,"results.html")
 def logout_(request):
   logout(request)
   return redirect("/")

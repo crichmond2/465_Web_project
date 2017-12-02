@@ -1,0 +1,10 @@
+
+{% extends "home.html" %}
+{% load static %}
+{% block title%}Results{% endblock %}
+
+{% block body %}
+{% for x in results %}
+<p>{{x}}</p>
+{% endfor %}
+{% endblock %}

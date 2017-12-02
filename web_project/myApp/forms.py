@@ -37,7 +37,16 @@ class Registration_form(UserCreationForm):
     if commit:
       user.save()
     return user
-
+class AddSchool(forms.Form):
+  school = forms.CharField(widget = forms.TextInput(attrs={'placeholder':'School Name'}),label = "school",max_length = 100,required = True)
+  class Meta:
+    model = Schools
+    fields=('school')
+  def save(self,commit=True):
+    school = Schools()
+    school.school = self.cleaned_data['school']
+    school.save()
+    return school
 class Extended_user_form(forms.Form):
   school = forms.CharField(label = "School",max_length = 100,required = True)
   years = forms.CharField(label = "Years", max_length = 100)
@@ -45,7 +54,13 @@ class Extended_user_form(forms.Form):
     model = Extended_user
     fields = ('School','years')
 
-
+class Search_form(forms.Form):
+  search_field = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Search..."}),label = "Search",max_length = 100,required = True)
+  class Meta:
+    fields = ('Search')
+  def get(self):
+    search = self.cleaned_data['search_field']
+    return search
 class Login_form(AuthenticationForm):
   username=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Username'}),
                           max_length=40,
