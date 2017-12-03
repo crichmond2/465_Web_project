@@ -36,8 +36,11 @@ def home(request):
             post_results.append(x)
           #print(x)
         #print(results)
-        context = {"school_results":school_results,"chat_results":chat_results,"post_results":post_results}
-        return render(request,"results.html",context)
+        form = Search_form()
+        context = {"school_results":school_results,"chat_results":chat_results,"post_results":post_results,"search":search}
+        #return redirect("results",context)
+        return results(request,context,search)
+        #return render(request,"results.html",context)
     form = Search_form()
     context = {"form":form}
     return render(request,"homepage.html",context)
@@ -83,11 +86,54 @@ def register(request):
   context = {"form":form}
   print("didn't work")
   return render(request,"register2.html",context)
+def filters(request):
+  if request.method == "POST":
+    form = request.POST.getlist('filter')
+    form2 = Search_form(request.POST)
+    if(form2.is_valid()):
+      search = form2.get()
+    print(form)
+    print(search)
+    chat_results = list()
+    post_results = list()
+    school_results = list()
+    people_results = list()
+    chat_rooms = Room.objects.all().values_list()
+    posts = Post.objects.all().values_list()
+    schools = Schools.objects.all().values_list()
+    users = User.objects.all().values_list('username',flat=True)
+    if("Chats" in form):
+      for i,j,x in chat_rooms:
+        if(search in x):
+          chat_results.append(x)
+    if("Schools" in form):
+      for i,x in schools:
+        if(search in x):
+          school_results.append(x)
+    if("Posts" in form):
+      for i,x,j in posts:
+        if(search in x):
+          post_results.append(x)
+    if("People" in form):
+      for x in users:
+        if(search in x):
+          people_results.append(x)
+          
+    data = {"search_field":search}
+    form2 = Search_form(data)
+    context = {"school_results":school_results,"people_results":people_results,"chat_results":chat_results,"post_results":post_results,"form2":form2}
+    return render(request,"results.html",context)
+  return redirect('/')
 def index(request):
   text = User.objects.all()
   return render(request,"content.html",locals())
-def results(request):
-  return render(request,"results.html")
+def results(request,context,search):
+  form = filter_form()
+  data = {"search_field":search}
+  form2 = Search_form(data)
+  context["form"] = form
+  context["form2"] = form2
+  return render(request,"results.html",context)
 def logout_(request):
   logout(request)
   return redirect("/")

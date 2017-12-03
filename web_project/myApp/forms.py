@@ -9,6 +9,9 @@ SCHOOL_LIST =(
     ('CSUCI','Cal State Channel Islands'),
     ('UCLA','UCLA'),
 )
+Filter_options=(('Schools','Schools'),
+                ('Chat','Chat'),
+                ('Posts','Posts'))
 class Registration_form(UserCreationForm):
   email = forms.EmailField(widget = forms.TextInput(attrs={'placeholder':'example@example.com'}),
                            required = True)
@@ -54,6 +57,8 @@ class Extended_user_form(forms.Form):
   class Meta:
     model = Extended_user
     fields = ('School','years')
+class filter_form(forms.Form):
+  filters = forms.MultipleChoiceField(choices=Filter_options,widget=forms.CheckboxSelectMultiple(),required = True)
 class post_form(forms.Form):
   user = forms.CharField(label="user",max_length = 100,required = True)
   text = forms.CharField(widget=forms.Textarea,label = 'text',required = True)

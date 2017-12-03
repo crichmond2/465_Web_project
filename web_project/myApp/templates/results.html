@@ -4,6 +4,18 @@
 {% block title%}Results{% endblock %}
 
 {% block body %}
+<p id = "search"style="display:none">{{search}}</p>
+<form method='post' action="/filter/">
+{% csrf_token %}
+<!--{{ form }}-->
+<input type="checkbox" name="filter" value="Chats" /> Chats
+<input type="checkbox" name="filter" value="Posts" /> Posts
+<input type="checkbox" name="filter" value="Schools" /> Schools
+<input type="checkbox" name="filter" value="People" /> People
+
+  {{form2}}
+<input type="submit" value = "submit">
+</form>
 <h3>----------------Chat Results---------------<h3>
 {% for x in chat_results %}
 <p>{{x}}</p>
@@ -14,6 +26,10 @@
 {% endfor %}
 <h3>----------------post_results-------------------<h3>
 {% for x in post_results %}
+<p>{{x}}</p>
+{% endfor %}
+<h3>--------------People_results-------------------<h3>
+{% for x in people_results %}
 <p>{{x}}</p>
 {% endfor %}
 {% endblock %}
