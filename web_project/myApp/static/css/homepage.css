@@ -1,4 +1,6 @@
-
+html,body{
+  background-image:"/static/images/pencils.jpg";
+}
 input{
     border: none;
     padding: 10px;

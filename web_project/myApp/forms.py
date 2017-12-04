@@ -47,7 +47,7 @@ class AddSchool(forms.Form):
     fields=('school')
   def save(self,commit=True):
     school = Schools()
-    school.school = self.cleaned_data['school']
+    school.School = self.cleaned_data['school']
     if(commit==True):
       school.save()
     return school

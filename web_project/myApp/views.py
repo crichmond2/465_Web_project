@@ -189,7 +189,8 @@ def profile(request,USER):
              "chat_rooms":room_list,
             }
   return render(request,"profile.html",context)
-
+def django(request):
+  return render(request,"django.html")
 def login_redir(request):
   user = request.user.get_username()
   redirection = 'accounts/profile/%s/' % user
