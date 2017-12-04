@@ -1,0 +1,27 @@
+/* home_style.css */
+@font-face{
+    font-family:FirsFont;
+    src: url('../fonts/RounD-Regular.woff') format('woff'); /*url('../static/fonts/RounD-Regular.woff') format('woff');*/
+    
+}
+.center{
+    height: 200px;
+    position: relative;
+    border: 7px ridge;
+    transform: translate(0%,70%);
+}
+.center p{
+    margin:0;
+    position:absolute;
+    top: 50%;
+    left:50%;
+    -ms-transform:translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family:FirsFont;
+}
+body{
+    text-shadow: 4px 4px grey;
+    font-style: italic;
+    font-size: 50px;
+    text-align: center;
+}
