@@ -18,7 +18,8 @@
 </form>
 <h3>----------------Chat Results---------------<h3>
 {% for x in chat_results %}
-<p>{{x}}</p>
+<li><a href="/chat/{{x}}">{{x}}</a></li>
+<!--<a >{{x}}</p>-->
 {% endfor %}
 <h3>---------------school results---------------<h3>
 {% for x in school_results %}
@@ -30,6 +31,7 @@
 {% endfor %}
 <h3>--------------People_results-------------------<h3>
 {% for x in people_results %}
-<p>{{x}}</p>
+<li><a href="/accounts/profile/{{x}}">{{x}}</a></li>
+<!--<p>{{x}}</p>-->
 {% endfor %}
 {% endblock %}
