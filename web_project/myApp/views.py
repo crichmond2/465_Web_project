@@ -41,8 +41,12 @@ def home(request):
         #return redirect("results",context)
         return results(request,context,search)
         #return render(request,"results.html",context)
+    if(request.user.is_authenticated()):
+      User = request.user.username
+    else:
+      User = "empty"
     form = Search_form()
-    context = {"form":form}
+    context = {"form":form,'User':User}
     return render(request,"homepage.html",context)
 def login(request):
   username = request.POST['username']
