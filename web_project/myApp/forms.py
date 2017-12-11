@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
 from .models import *
 from django_popup_view_field.fields import PopupViewField
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 SCHOOL_LIST =(
     ('CSUC','Chico State'),
     ('CSUCI','Cal State Channel Islands'),
@@ -76,7 +79,10 @@ class post_form(forms.Form):
     context = (self.cleaned_data['user'],self.cleaned_data['text'])
     return context
 class Search_form(forms.Form):
-  search_field = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Search..."}),label = "Search",max_length = 100,required = True)
+  search_field = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Search..."}),label = "",max_length = 100,required = True)
+  helper = FormHelper()
+  helper.form_method='POST'
+  helper.add_input(Submit('search', 'search', css_class='btn-primary'))
   class Meta:
     fields = ('Search')
   def get(self):

@@ -29,6 +29,9 @@ ALLOWED_HOSTS = ['desolate-atoll-85149.herokuapp.com','localhost', "127.0.0.1"]
 
 var = 'RLChris'
 LOGIN_REDIRECT_URL = 'login_redir'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_popup_view_field',
     'pusherable',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

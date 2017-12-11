@@ -17,3 +17,4 @@ six==1.11.0
 Twisted==17.9.0
 txaio==2.8.2
 zope.interface==4.4.3
+django-crispy-forms==1.7.0
