@@ -173,6 +173,7 @@ def profile(request,USER):
   first_name = list(prof_first_name)
   prof_last_name = User.objects.all().filter(username=prof).values_list('last_name',flat=True)
   chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+  posts = Post.objects.all().filter(user=user).values_list('Post',flat=True)
   room_list = list(chatRooms)
   last_name = list(prof_last_name)
   print(len(room_list))
@@ -191,6 +192,7 @@ def profile(request,USER):
              "prof_last_name":last_name[0],
              "chat_link":chat_link,
              "chat_rooms":room_list,
+             "posts":posts,
             }
   return render(request,"profile.html",context)
 def django(request):
