@@ -48,6 +48,11 @@ def home(request):
     form = Search_form()
     context = {"form":form,'User':User}
     return render(request,"homepage.html",context)
+@login_required
+def post_history(request):
+  post = Post.objects.all().values_list(user=request.user.username)
+  context = {'posts':post}
+  return render(request,"post_history.html",context)
 def login(request):
   username = request.POST['username']
   password = request.POST['password']
