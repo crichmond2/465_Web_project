@@ -87,8 +87,18 @@ def add_school(request):
 def register(request):
   if request.method == 'POST':
     form = Registration_form(request.POST)
+    #form2 = Schools(request.POST) 
     if form.is_valid():
+      data = {'school':form.cleaned_data['school'],'user': form.cleaned_data['username']}
+      ext_u = Extended_user()
+      ext_u.school = form.cleaned_data['school']
+      ext_u.user = form.cleaned_data['username']
+      ext_u.save(commit=True)
       form.save(commit=True)
+    #if form2.is_valid():
+    #form = Extended_user(data)
+    #  if(form.is_valid()):
+    #form.save(commit=True)
       return redirect("/")
   else:
     form = Registration_form()
@@ -179,7 +189,11 @@ def profile(request,USER):
   prof_last_name = User.objects.all().filter(username=prof).values_list('last_name',flat=True)
   chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
   posts = Post.objects.all().filter(user=user).values_list('Post',flat=True)
+  Email = User.objects.all().filter(username=prof).values_list('email',flat=True)
+  School = Extended_user.objects.all().filter(user=prof).values_list('school',flat=True)
+  school = list(School)
   room_list = list(chatRooms)
+  email = list(Email)
   last_name = list(prof_last_name)
   print(len(room_list))
   print(room_list)
@@ -198,6 +212,8 @@ def profile(request,USER):
              "chat_link":chat_link,
              "chat_rooms":room_list,
              "posts":posts,
+             "email":email,
+             "school":school,
             }
   return render(request,"profile.html",context)
 def django(request):

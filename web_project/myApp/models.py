@@ -22,7 +22,11 @@ SCHOOL_LIST =(
 # Create your models here.
 class Extended_user(models.Model):
   school = models.CharField(max_length=200)
-  years = models.IntegerField()
+  user = models.CharField(max_length=100,default='null')  
+  def save(self,commit=True,*args,**kwargs):
+    if(commit==True):
+      super(Extended_user,self).save(*args,**kwargs)
+  #years = models.IntegerField()
 class Question(models.Model):
   question_text = models.CharField(max_length=200)
   pub_date = models.DateTimeField('date_published')
