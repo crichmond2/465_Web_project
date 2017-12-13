@@ -1,6 +1,8 @@
 {% extends "home.html" %}
 {% load static %}
 {% block title%}Registration Page{% endblock %}
-
 {% block body %}
+  {% for x in posts %}
+    <p>{{x}}</p>
+  {% endfor %}
 {% endblock %}

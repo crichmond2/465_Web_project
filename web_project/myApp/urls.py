@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^logout/$',views.logout_,name='logout'),
     url(r'accounts/profile/(?P<USER>.+)/$',views.profile,name='profile'),
     url(r'^post/$',views.post,name='Post'),
-    url(r'^post_history/$',views.post_history,"post history"),
+    url(r'^post_history/$',views.post_history,name="post_history"),
     url(r'^django/$',views.django,name='Django'),
 ]

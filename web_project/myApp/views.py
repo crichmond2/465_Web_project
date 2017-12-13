@@ -48,9 +48,9 @@ def home(request):
     form = Search_form()
     context = {"form":form,'User':User}
     return render(request,"homepage.html",context)
-@login_required
+#@login_required
 def post_history(request):
-  post = Post.objects.all().values_list(user=request.user.username)
+  post = Post.objects.all().filter(user=request.user.get_username()).values_list('Post',flat=True)
   context = {'posts':post}
   return render(request,"post_history.html",context)
 def login(request):
