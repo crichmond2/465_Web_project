@@ -6,6 +6,7 @@ from django.core.urlresolvers import resolve,reverse
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.http import HttpResponseRedirect
+import datetime
 # Create your views here.
 @login_required
 def new_room(request,label):

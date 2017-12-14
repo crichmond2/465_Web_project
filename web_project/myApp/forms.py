@@ -100,6 +100,9 @@ class Login_form(AuthenticationForm):
                            max_length=40,
                            widget=forms.PasswordInput(),
                            )
+class comment_form(forms.Form):
+  comment = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Comment...'}))
+
 #class school_form(forms.ModelForm):
 #  class Meta:
 #    model = school

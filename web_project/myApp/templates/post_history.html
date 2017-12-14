@@ -2,7 +2,9 @@
 {% load static %}
 {% block title%}Registration Page{% endblock %}
 {% block body %}
-  {% for x in posts %}
-    <p>{{x}}</p>
+  {% for y in posts %}
+    <ul>
+      <li><a href = "/posts/{{y}}">{{y}}</a></li>
+    </ul>
   {% endfor %}
 {% endblock %}

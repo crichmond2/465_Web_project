@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from django.urls import resolve
 from django.views.generic.detail import DetailView
 from pusherable.mixins import PusherDetailMixin
@@ -9,7 +10,9 @@ from chat.models import chat_users, Room
 from .forms import *
 import random
 import os
+import datetime
 # Create your views here.
+now = datetime.datetime.now()
 def home(request):
     if(request.method == 'POST'):
       form = Search_form(request.POST)
@@ -52,20 +55,42 @@ def home(request):
     return render(request,"homepage.html",context)
 #@login_required
 def post_history(request):
-  #Title = Post.objects.all().filter(user=request.user.get_unsername()).values_list('Titles',flat=True)
+  Title = Post.objects.all().filter(user=request.user.get_username()).values_list('Title',flat=True)
   post = Post.objects.all().filter(user=request.user.get_username()).values_list('Post',flat=True)
+  post_list = list(post)
+  title_list = list(Title)
+  title_list2 = list()
+  for x in title_list:
+    title_list2.append(x)
+  post_list2 = list()
+  for x in post_list:
+    post_list2.append(x.split("["))
+  posts = {'Title':title_list2}
   #Title = list(title)
   #post = list(Post)
-  print(post)
-  print(Title)
-  context = {'posts':post}
+  #print(post)
+  #print(Title)
+  context = {'posts':Title}
   return render(request,"post_history.html",context)
 def posting(request,title):
+  if(request.method=='POST'):
+    TiTles = Post.objects.get(Title = title)
+    form = comment_form(request.POST)
+    if form.is_valid():
+      com = Comment()
+      com.Post = TiTles.id
+      com.user = request.user.get_username()
+      com.comment = form.cleaned_data['comment']
+      com.timestamp = now.isoformat()
+      com.save()
   titles = Post.objects.all().filter(Title = title).values_list('Title',flat=True)
   Posts = Post.objects.all().filter(Title=title).values_list('Post',flat=True)
   Titles = list(titles)
+  TiTles = Post.objects.get(Title = title)
   posts = list(Posts)
-  context = {'posts':posts,'Titles':Titles}
+  form = comment_form()
+  messages = reversed(TiTles.comment.order_by('-timestamp')[:10])
+  context = {'posts':posts,'Titles':Titles,'comment':messages,'form':form}
   return render(request,"postings.html",context)
 def login(request):
   username = request.POST['username']
@@ -125,8 +150,8 @@ def filters(request):
     form2 = Search_form(request.POST)
     if(form2.is_valid()):
       search = form2.get()
-    print(form)
-    print(search)
+    #print(form)
+    #print(search)
     chat_results = list()
     post_results = list()
     post_titles = list()

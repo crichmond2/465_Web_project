@@ -7,5 +7,17 @@
   {% for x in posts %}
     <h3>{%for y in Titles %}{{y}}{%endfor%}
     <p>{{x}}</p>
+      {% for comment in comments %}
+        <tr>
+          <td>{{ comment.formatted_timestamp }} </td>
+          <td>{{ comment.user }} </td>
+          <td>{{ comment.comment }} </td>
+        </tr>
+      {% endfor %}
+      <form autocomplete='off' method='post'> 
+        {% csrf_token %}
+        {{form.comment}}
+        <input type="submit" class = "button expanded" value="sub"/>
+      </form>
   {% endfor %}
 {% endblock %}

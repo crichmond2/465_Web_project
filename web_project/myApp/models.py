@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 SCHOOL_LIST =(
     ('CSUC','Chico State'),
     ('CSUCI','Cal State Channel Islands'),
@@ -48,6 +49,18 @@ class Post(models.Model):
   def save(self,commit = True,*args,**kwargs):
     if(commit==True):
       super(Post,self).save(*args,**kwargs)
+class Comment(models.Model):
+  post = models.ForeignKey(Post,null=True,related_name = "comment")
+  user = models.CharField(max_length=100)
+  comment = models.CharField(max_length=400)
+  timestamp = models.DateTimeField(default=timezone.now,db_index=True)
+  def as_dict(self):
+    return {'user':self.handle, 'comment':self.message,'timestamp':self.timestamp}
+  def formatted_timestamp(self):
+    return self.timestamp.strftime('%b %-d %-I:%M %p')
+  def save(self,*args,**kwargs):
+    super(Comment,self).save(*args,**kwargs)
+
 #class Room(models.Model):
 #	name = models.TextField()
 #	label = models.SlugField(unique=True)
