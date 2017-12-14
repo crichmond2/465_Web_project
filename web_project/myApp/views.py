@@ -16,6 +16,7 @@ def home(request):
       school_results = list()
       post_results = list()
       chat_results = list()
+      post_titles = list()
       chat_rooms = Room.objects.all().values_list()
       schools = Schools.objects.all().values_list()
       posts = Post.objects.all().values_list()
@@ -31,13 +32,14 @@ def home(request):
           if(search in x or search == x):
            # print(i + "," + x)
             school_results.append(x)
-        for i,x,j in posts:
+        for a,i,x,j in posts:
           if(search in x):
             post_results.append(x)
+            post_titles.append(i)
           #print(x)
         #print(results)
         form = Search_form()
-        context = {"school_results":school_results,"chat_results":chat_results,"post_results":post_results,"search":search}
+        context = {"school_results":school_results,"chat_results":chat_results,"post_titles":post_titles,"post_results":post_results,"search":search}
         #return redirect("results",context)
         return results(request,context,search)
         #return render(request,"results.html",context)
@@ -50,9 +52,21 @@ def home(request):
     return render(request,"homepage.html",context)
 #@login_required
 def post_history(request):
+  #Title = Post.objects.all().filter(user=request.user.get_unsername()).values_list('Titles',flat=True)
   post = Post.objects.all().filter(user=request.user.get_username()).values_list('Post',flat=True)
+  #Title = list(title)
+  #post = list(Post)
+  print(post)
+  print(Title)
   context = {'posts':post}
   return render(request,"post_history.html",context)
+def posting(request,title):
+  titles = Post.objects.all().filter(Title = title).values_list('Title',flat=True)
+  Posts = Post.objects.all().filter(Title=title).values_list('Post',flat=True)
+  Titles = list(titles)
+  posts = list(Posts)
+  context = {'posts':posts,'Titles':Titles}
+  return render(request,"postings.html",context)
 def login(request):
   username = request.POST['username']
   password = request.POST['password']
@@ -115,6 +129,7 @@ def filters(request):
     print(search)
     chat_results = list()
     post_results = list()
+    post_titles = list()
     school_results = list()
     people_results = list()
     chat_rooms = Room.objects.all().values_list()
@@ -130,9 +145,10 @@ def filters(request):
         if(search in x):
           school_results.append(x)
     if("Posts" in form):
-      for i,x,j in posts:
+      for a,i,x,j in posts:
         if(search in x):
           post_results.append(x)
+          post_titles.append(i)
     if("People" in form):
       for x in users:
         if(search in x):
@@ -140,7 +156,7 @@ def filters(request):
           
     data = {"search_field":search}
     form2 = Search_form(data)
-    context = {"school_results":school_results,"people_results":people_results,"chat_results":chat_results,"post_results":post_results,"form2":form2}
+    context = {"school_results":school_results,"people_results":people_results,"chat_results":chat_results,"post_titles":post_titles,"post_results":post_results,"form2":form2}
     return render(request,"results.html",context)
   return redirect('/')
 def index(request):
@@ -162,16 +178,18 @@ def post(request):
     form = post_form(request.POST)
     print(form.is_valid())
     if(form.is_valid()):
-      User,Text = form.get()
-      print(User + " " + Text)
+      User,Text,Title = form.get()
+      print(Title + " "+ User + " " + Text)
       data = {'user':User,'text':Text} 
       post = Post()
       post.user = User
       post.text = Text
+      post.Title = Title
       #post.save()
       instance = form.save(commit=False)
       instance.user = User
       instance.Post = Text
+      instance.Title = Title
       instance.save()
       return redirect('/')
   data = {'user':request.user.username}

@@ -5,6 +5,7 @@
 <div class = "grid-x grid-x-padding">
   <form method="post">
     {% csrf_token %}
+    {{form.Title}}
     {{form.user.label_tag}}
     {{form.user}}
     {{form.text.label_tag}}

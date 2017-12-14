@@ -1,5 +1,6 @@
 {% extends "home.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 
 {% block body %}
@@ -11,25 +12,39 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/accounts/profile/{{User}}">Profile</a>
+              <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login/">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/chat/testing/">Chat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#post_history">Post-History</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/logout/">Logout</a>
-            </li>       
+              <a class="nav-link js-scroll-trigger" href="/register/">Register</a>
+            </li>        
           </ul>
         </div>
       </div>
     </nav>
  <header class="masthead text-center text-white d-flex">
+  <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+           <h2 class="section-heading">Login</h2>
+            <hr>
+  <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{ form.errors }}
+      {{ form.username.label_tag}}
+      {{ form.username }}
+      {{ form.password.label_tag}}
+      {{ form.password}}
+      <input type="submit" class="button expanded" value="login">
+    </form>
 <!---<div class="grid-x grid-x-padding">
   div class="large-4 medium-4 small-4 large-offset-4 medium-offset-4 small-offset-4 columns">--->
+ <!---         <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h2 class="section-heading">Login</h2>
+            <hr class="my-4">
+<form action="{% url 'login' %}" method="post">
       <div class="container my-auto">
         <div class="row">
           <div class="col-lg-10 mx-auto">
@@ -39,13 +54,17 @@
     <form action="{% url 'login' %}" method="post">
       {% csrf_token %}
       {{ form.errors }}
-      {{ form.username.label_tag }}
+      {{ form.username.label_tag}}
       {{ form.username }}
-      {{ form.password.label_tag }}
-      {{ form.password }}
+      {{ form.password.label_tag}}
+      {{ form.password}}
       <input type="submit" class="button expanded" value="login">
     </form>
+          </div>
+        </div>
+      </div>
+    
   <!---</div>-->
-</div>
+  <!---</div>-->
 </header>
 {% endblock %}

@@ -65,6 +65,7 @@ class filter_form(forms.Form):
 class post_form(forms.Form):
   user = forms.CharField(label="user",max_length = 100,required = True)
   text = forms.CharField(widget=forms.Textarea,label = 'text',required = True)
+  Title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Title..."}),label = "",max_length = 100)
   class Meta:
     model = Post
     fields = ('user','text')
@@ -72,11 +73,12 @@ class post_form(forms.Form):
     model = Post()
     model.user=self.cleaned_data['user']
     model.text=self.cleaned_data['text']
+    model.text=self.cleaned_data['Title']
     if(commit==True):
       model.save()
     return model
   def get(self):
-    context = (self.cleaned_data['user'],self.cleaned_data['text'])
+    context = (self.cleaned_data['user'],self.cleaned_data['text'],self.cleaned_data['Title'])
     return context
 class Search_form(forms.Form):
   search_field = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Search..."}),label = "",max_length = 100,required = True)

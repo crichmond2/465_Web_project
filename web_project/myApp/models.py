@@ -42,6 +42,7 @@ class Schools(models.Model):
     if(commit == True):
       super(Schools,self).save(*args,**kwargs)
 class Post(models.Model):
+  Title = models.CharField(default = "",max_length=100)
   Post = models.TextField()
   user = models.CharField(max_length=100)
   def save(self,commit = True,*args,**kwargs):

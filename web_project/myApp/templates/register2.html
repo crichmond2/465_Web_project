@@ -8,42 +8,50 @@ function new_window(){
   var Win = window.open("../chat/new","MsgWindow","width=500,height=400");
 }
 </script>
-<link rel="stylesheet" type="text/css" href={% static "css/register.css" %}/>
-
-     <div class="grid-x grid-x-padding" style="height:100%;">
-       <div onclick="new_window()" class="large-2 medium-2 small-2 columns" style="background-color:maroon">
-         <div class="large-12 medium-12 small-12">
-           <h2 style="color:white">REGISTER</h2>
-           <p style="color:white">Please register by entering a Username, your First and Last Names,an email we can contact you at and your password.
-           </p>
-           <p style="color:white">
-            Please select the school you currently attend, or plan to attend. If your school isn't listed please follow the link to add your school.<a href="/add_school/">Add school</a>
-            </p>
-            <p style="color:white">
-              {{form.errors}}
-            </p>
-      <!--      <form id="click"onclick="change_pic(this)"action="/register/" style="color:maroon"  class = "ChicoState">
-              {% csrf_token %}
-            </form> -->
-         </div>
-       </div>
-       <div class="large-10 medium-10 small-10 columns" id="schools">
-          <!---<img class="bottom" src="{% static "images/ChicoState.jpg" %}"/>
-          <img class="top" src="{% static "images/UCLA.jpg" %}"/> -->
-          <form action="/register/"  method="post" style="margin:80px">
+<!---Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+       <a class="navbar-brand js-scroll-trigger" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login/">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/register/">Register</a>
+            </li>
+            <!---<li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>-->
+          </ul>
+        </div>
+      </div>
+    </nav>
+ <header class="masthead text-center text-white d-flex">
+  <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+           <h2>Register</h2>
+            <hr class="my-4">
+  <form action="/register/"  method="post" style="margin:80px">
             {% csrf_token %}
-            {{ form.username }}
-            {{ form.firstname }}
-            {{ form.lastname }}
-            {{ form.email }}
-            {{ form.password1 }}
-            {{ form.password2 }}
-            {{ form.school }}
+            {{ form.username }} <br>
+            {{ form.firstname }} <br>
+            {{ form.lastname }} <br>
+            {{ form.email }} <br>
+            {{ form.password1 }} <br>
+            {{ form.password2 }} <br>
+            {{ form.school }} <br>
             <input type="submit" class = "button expanded" value="Register"/>
           </form>
-        </div>
-     </div>
 {% endblock %}
 {% block scripts %}
   <script src="{% static "js/register.js" %}"></script>
 {% endblock %}
+
