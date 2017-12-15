@@ -52,7 +52,9 @@ def home(request):
     #else:
      # User = "empty"
     form = Search_form()
-    context = {"form":form,'User':User}
+    chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+    rooms = list(chatRooms)
+    context = {'rooms':rooms,"form":form,'User':User}
     return render(request,"homepage.html",context)
 @login_required
 def post_history(request):
@@ -92,9 +94,11 @@ def posting(request,title):
   TiTles = Post.objects.get(Title = title)
   posts = list(Posts)
   form = comment_form()
+  chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+  rooms = list(chatRooms)
   messages = Comment.objects.all().filter(post=TiTles.id).select_related().filter(post=TiTles.id)
   print(messages)
-  context = {'posts':posts,'Titles':Titles,'comment':messages,'form':form}
+  context = {'rooms':rooms,'posts':posts,'Titles':Titles,'comment':messages,'form':form}
   return render(request,"postings.html",context)
 def login(request):
   username = request.POST['username']
@@ -223,7 +227,9 @@ def post(request):
       return redirect('/')
   data = {'user':request.user.username}
   form = post_form(data) 
-  context = {'form':form}
+  chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+  rooms = list(chatRooms)
+  context = {'form':form,'rooms':rooms}
   return render(request,"post.html",context)
 @login_required
 def profile(request,USER):
