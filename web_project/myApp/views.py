@@ -52,7 +52,7 @@ def home(request):
     #else:
      # User = "empty"
     form = Search_form()
-    chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
+    chatRooms = chat_users.objects.all().filter(user_name=User).values_list('room',flat=True)
     rooms = list(chatRooms)
     context = {'rooms':rooms,"form":form,'User':User}
     return render(request,"homepage.html",context)
@@ -94,6 +94,7 @@ def posting(request,title):
   TiTles = Post.objects.get(Title = title)
   posts = list(Posts)
   form = comment_form()
+  user = request.user.get_username()
   chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
   rooms = list(chatRooms)
   messages = Comment.objects.all().filter(post=TiTles.id).select_related().filter(post=TiTles.id)
@@ -227,6 +228,7 @@ def post(request):
       return redirect('/')
   data = {'user':request.user.username}
   form = post_form(data) 
+  user = request.user.get_username()
   chatRooms = chat_users.objects.all().filter(user_name=user).values_list('room',flat=True)
   rooms = list(chatRooms)
   context = {'form':form,'rooms':rooms}
