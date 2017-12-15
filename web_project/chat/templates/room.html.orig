@@ -1,0 +1,101 @@
+{% extends "home.html" %}
+{% load static %}
+{% block body %}
+ <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+             <li class="nav-item">
+<<<<<<< HEAD
+              <a class="nav-link js-scroll-trigger" href="/accounts/profile/{{user}}">Profile</a>
+=======
+              <a class="nav-link js-scroll-trigger" href="/accounts/profile/{{User}}">Profile</a>
+>>>>>>> f95a1ee6c0e64bb54d1cb6190ed31d0d5d145c88
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/chat/testing/">Chat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/post_history/">Post-History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<header class="masthead text-center text-white d-flex">
+ <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+
+<<<<<<< HEAD
+  <h1>{{room.label}}</h1>
+=======
+  <h1><!---{{room.label}}--->Chat</h1>
+>>>>>>> f95a1ee6c0e64bb54d1cb6190ed31d0d5d145c88
+  <p>*Note: If no users are registered, all messages will be deleted</p>
+  {% for x in room_users %}
+   <ul>{{x}}</ul>
+  {% endfor %}
+  <div class = "grid-x grid-x-padding">
+    <div class = "large-3 medium-3 small-3">
+      {% if not registered %}
+      <form method="post">
+          {% csrf_token %}
+          {{register.room }}    
+          {{register.username}}
+       <input type="submit" class = "button rounded" value="Register for the Chat Room"/>
+      </form>
+      {% else %}
+      <p> You are registered</p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="submit" class = "button round" value="Unregister"/>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+<!--  <p class="quiet">
+    dAnyone with this URL can join the room and chat:
+    <code>{{ request.scheme }}://{{ request.get_host }}/chat/{{ room.label }}
+  </p>-->
+  <li id = "username" style="display: none;">{{ user }}</li>
+  <div id = "messages">
+  <form id = "chatform">
+    <table id="chat">
+      <tbody>
+        {% for message in messages %}
+          <tr>
+            <td>{{ message.formatted_timestamp }} </td>
+            <td>{{ message.handle }} </td>
+            <td>{{ message.message }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+<div align="center">
+          <td>Say something</td>
+          <td colspan=2>
+            <input id="message" type="text" placeholder = "message">
+            <button type="submit" id="go">Say it</button>
+          </td>
+</div>
+        </tfoot>
+      </table>
+    </form>
+    </div>
+{% endblock body %}
+
+{% block scripts %}
+  <script type="text/javascript" src='{% static "jquery-1.12.1.min.js" %}'></script>
+  <script type="text/javascript" src='{% static "reconnecting-websocket.min.js" %}'></script>
+  <script type="text/javascript" src='{% static "chat.js" %}'></script>
+{% endblock scripts %}
+
