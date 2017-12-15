@@ -50,7 +50,7 @@ class Post(models.Model):
     if(commit==True):
       super(Post,self).save(*args,**kwargs)
 class Comment(models.Model):
-  post = models.ForeignKey(Post,null=True,related_name = "comment")
+  post = models.ForeignKey(Post,default="1",on_delete=models.CASCADE,related_name = "comment")
   user = models.CharField(max_length=100)
   comment = models.CharField(max_length=400)
   timestamp = models.DateTimeField(default=timezone.now,db_index=True)

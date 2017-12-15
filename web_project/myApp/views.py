@@ -46,14 +46,15 @@ def home(request):
         #return redirect("results",context)
         return results(request,context,search)
         #return render(request,"results.html",context)
-    if(request.user.is_authenticated()):
-      User = request.user.username
-    else:
-      User = "empty"
+    #if(request.user.is_authenticated()):
+    User = request.user.get_username()
+    print(User)
+    #else:
+     # User = "empty"
     form = Search_form()
     context = {"form":form,'User':User}
     return render(request,"homepage.html",context)
-#@login_required
+@login_required
 def post_history(request):
   Title = Post.objects.all().filter(user=request.user.get_username()).values_list('Title',flat=True)
   post = Post.objects.all().filter(user=request.user.get_username()).values_list('Post',flat=True)
@@ -70,7 +71,7 @@ def post_history(request):
   #post = list(Post)
   #print(post)
   #print(Title)
-  context = {'posts':Title}
+  context = {'posts':Title,'User':request.user.get_username()}
   return render(request,"post_history.html",context)
 def posting(request,title):
   if(request.method=='POST'):
@@ -78,8 +79,10 @@ def posting(request,title):
     form = comment_form(request.POST)
     if form.is_valid():
       com = Comment()
-      com.Post = TiTles.id
+      print(TiTles.id)
+      com.post_id = TiTles.id
       com.user = request.user.get_username()
+      print(form.cleaned_data['comment'])
       com.comment = form.cleaned_data['comment']
       com.timestamp = now.isoformat()
       com.save()
@@ -89,7 +92,8 @@ def posting(request,title):
   TiTles = Post.objects.get(Title = title)
   posts = list(Posts)
   form = comment_form()
-  messages = reversed(TiTles.comment.order_by('-timestamp')[:10])
+  messages = Comment.objects.all().filter(post=TiTles.id).select_related().filter(post=TiTles.id)
+  print(messages)
   context = {'posts':posts,'Titles':Titles,'comment':messages,'form':form}
   return render(request,"postings.html",context)
 def login(request):
@@ -250,6 +254,7 @@ def profile(request,USER):
   context = {"form":form,
              "name":full_name,
              "owner":owner,
+             "User":owner,
              "prof_first_name":first_name[0],
              "prof_last_name":last_name[0],
              "chat_link":chat_link,

@@ -60,6 +60,7 @@ def chat_room(request,label):#,label):
     'room':room,
     'messages':messages,
     'user':user,
+    'User':user,
     'register':form,
     'registered':registered,
     'room_users':register,

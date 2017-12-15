@@ -28,9 +28,12 @@ def ws_receive(message):
 def ws_disconnect(message):
   label = message.channel_session['room']
   room = Room.objects.get(label=label)
+  messages = Message.objects.all().filter(room=room.id)
   room_users = chat_users.objects.filter(room=room).values_list('user_name',flat=True)
   Room_users = list(room_users)
   num_users = len(Room_users)
+  print(messages)
   if num_users < 1:
-    room.delete()
+    print("deleting")
+    messages.delete()
   Group('chat-'+label).discard(message.reply_channel)

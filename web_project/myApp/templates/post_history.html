@@ -2,9 +2,67 @@
 {% load static %}
 {% block title%}Registration Page{% endblock %}
 {% block body %}
+<body id="page-top">
+  {% if user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/accounts/profile/{{User}}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/chat/testing/">Chat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/post_history/">Post-History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% else %}
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login/">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/registert/">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+  <header class="masthead text-center text-white d-flex">
+ <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+ <h1 class="text-uppercase">
+              <strong>Post History:</strong>
+            </h1>
   {% for y in posts %}
+  <h3 class="mb-3">
     <ul>
+ <p class="text-faded mb-5">
       <li><a href = "/posts/{{y}}">{{y}}</a></li>
+ </p>
     </ul>
+  </h3>
+
   {% endfor %}
 {% endblock %}
